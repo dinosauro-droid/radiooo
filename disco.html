@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>RADIO COZZA - Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      background-image: radial-gradient(red 1px, transparent 1px);
+      background-size: 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: start;
+      height: 100vh;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      margin: 0;
+      padding-top: 40px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #ffcc00;
+      text-shadow: 0 0 10px red, 0 0 20px yellow;
+      margin-bottom: 40px;
+    }
+
+    .player-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .turntable {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, #000 8%, yellow 30%, #ffcc00 60%, #000 100%);
+      border: 8px solid #222;
+      box-shadow: 0 0 30px red, 0 0 60px yellow;
+      animation: spin 4s linear infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .label {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      color: black;
+      font-family: 'Lobster', cursive;
+      mix-blend-mode: difference;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .live-button {
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: red;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 15px red;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .live-button:hover {
+      background-color: #ff3333;
+      box-shadow: 0 0 25px yellow;
+    }
+  </style>
+</head>
+<body>
+  <h1>RADIO COZZA</h1>
+  <div class="player-container">
+    <div class="turntable" id="vinyl">
+      <div class="label">RADIO COZZA</div>
+    </div>
+  </div>
+  <button class="live-button" onclick="toggleLive()">LIVE</button>
+  <audio id="audio" src="https://your-stream-url-here/live" preload="none"></audio>
+
+  <script>
+    const audio = document.getElementById('audio');
+    let isPlaying = false;
+
+    function toggleLive() {
+      if (!isPlaying) {
+        audio.play().then(() => {
+          isPlaying = true;
+        }).catch(error => {
+          alert('⚠️ Audio bloccato dal browser! Tocca lo schermo o interagisci col sito per attivarlo.');
+          console.error('Errore di riproduzione:', error);
+        });
+      } else {
+        audio.pause();
+        isPlaying = false;
+      }
+    }
+  </script>
+</body>
+</html>
